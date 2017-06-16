@@ -15,7 +15,8 @@
 #######################################################################
 
 # force ADC enable for battery voltage and current
-i2cset -y -f 0 0x34 0x82 0xC3
+i2cset -y -f -m 0x80 0 0x34 0x82 0xff
+i2cset -y -f -m 0x40 0 0x34 0x82 0xff
 
 ################################
 #read Power status register @00h
@@ -116,5 +117,3 @@ BAT_GAUGE_HEX=$(i2cget -y -f 0 0x34 0xb9)
 # bash math -- converts hex to decimal so `bc` won't complain later...
 # MSB is 8 bits, LSB is lower 4 bits
 BAT_GAUGE_DEC=$(($BAT_GAUGE_HEX))
-
-
